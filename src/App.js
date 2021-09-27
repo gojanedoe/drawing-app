@@ -46,17 +46,33 @@ function shufflePhotos(arr) {
   return newArr;
 }
 
+function Image(props) {
+  const { currentPhoto } = props;
+  return (
+    <div className="photo-container">
+      <img
+        src={currentPhoto.imageinfo[0].url}
+        className="photo"
+        //style="height: 100vh;"
+        //height="100vh"
+
+        //{photos[currentImg].imageinfo[0].extmetadata.width > photos[currentImg].imageinfo[0].extmetadata.height ? "width"="100vw" : "height"="100vh"}
+        // alt={
+        //   photos[currentImg].imageinfo[0].extmetadata.ImageDescription.value
+        // }
+      />
+    </div>
+  );
+}
+
 function App() {
   const [photos, setPhotos] = useState([]);
   const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once
-  const [currentImg, setCurrentImg] = useState({
-    imageinfo: {},
-    indexNum: null
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     let url =
-      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata&format=json&origin=*';
+      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata|size&format=json&origin=*';
 
     if (!fetchIsFinished) {
       fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
@@ -64,20 +80,28 @@ function App() {
     }
   }, []);
 
-  // Show image
-  // useEffect(() => {
-  //console.log(photos[0].imageinfo[0].url);
-
-  // }, [fetchIsFinished]);
-
   // Show loading text if no photos saved yet
   if (photos === undefined || photos.length == 0) {
     return <div className="App">Fetching images...</div>;
   }
 
+  /* TODO:
+    Check image's size, & (for whichever is larger) set width or height to browser's width or height
+      if (photos[currentIndex].imageinfo[0].extmetadata.width > photos[currentIndex].imageinfo[0].extmetadata.height) {
+        // set explicit width
+      } else {
+        // set explicit height
+      }
+
+    Fix image alts:
+      delete html markup from text
+      if imagedescription doesn't exist, set to standard or alternative text
+  */
+
   return (
     <div className="App">
-      <img />
+      {console.log(photos[currentIndex])}
+      {fetchIsFinished && <Image currentPhoto={photos[currentIndex]} />}
     </div>
   );
 }
