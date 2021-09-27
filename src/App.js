@@ -1,28 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
-  const [photos, setPhotos] = useState([]);
-  const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once
-
-  useEffect(() => {
-    let url =
-      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata&format=json&origin=*';
-
-    if (!fetchIsFinished) {
-      fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
-        .catch((err) => console.error('Error:', err));
-    }
-  }, []);
-
-  // Show loading text if no photos saved yet
-  if (photos === undefined || photos.length == 0) {
-    return <div className="App">Fetching images...</div>;
-  }
-
-  return <div className="App"></div>;
-}
-
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
   // Test for no continue:  'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Documents signed by Boris Yeltsin&prop=imageinfo&gcmlimit=50&iiprop=url|extmetadata&format=json&origin=*';
 
@@ -66,6 +44,42 @@ function shufflePhotos(arr) {
   }
 
   return newArr;
+}
+
+function App() {
+  const [photos, setPhotos] = useState([]);
+  const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once
+  const [currentImg, setCurrentImg] = useState({
+    imageinfo: {},
+    indexNum: null
+  });
+
+  useEffect(() => {
+    let url =
+      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata&format=json&origin=*';
+
+    if (!fetchIsFinished) {
+      fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
+        .catch((err) => console.error('Error:', err));
+    }
+  }, []);
+
+  // Show image
+  // useEffect(() => {
+  //console.log(photos[0].imageinfo[0].url);
+
+  // }, [fetchIsFinished]);
+
+  // Show loading text if no photos saved yet
+  if (photos === undefined || photos.length == 0) {
+    return <div className="App">Fetching images...</div>;
+  }
+
+  return (
+    <div className="App">
+      <img />
+    </div>
+  );
 }
 
 export default App;
