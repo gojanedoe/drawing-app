@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     let url =
-      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=500&iiprop=url|extmetadata&format=json&origin=*';
+      'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata&format=json&origin=*';
 
     if (!fetchIsFinished) {
       fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
@@ -37,21 +37,35 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
     .then((response) => response.json())
     .then(function (data) {
       if ('continue' in data) {
-        // Add new data to array of data
-        // Combine earlier data with new array of data & save in state
+        // Combine image data & save in state
         let newData = Object.values(data.query.pages);
-        setPhotos((prevState) => prevState.concat(newData)); // combine earlier data with new array of data & save in state
+        setPhotos((prevState) => prevState.concat(newData));
+
         // Call fetch again with new url
         url = url + '&gcmcontinue=' + data.continue.gcmcontinue;
         fetchPhotos(url, setPhotos, setFetchIsFinished);
       } else {
-        //End recursion and add last values to sstate
+        //End recursion
         console.log('No more continues');
         let newData = Object.values(data.query.pages);
-        setPhotos((prevState) => prevState.concat(newData)); // combine earlier data with new array of data & save in state
+
+        // Combine image data, shuffle, & save in state
+        setPhotos((prevState) => shufflePhotos(prevState.concat(newData)));
         setFetchIsFinished(true);
       }
     });
+}
+
+function shufflePhotos(arr) {
+  let newArr = arr;
+
+  // Use Durstenfeld algorithm to shuffle
+  for (let i = newArr.length - 1; i > 0; i--) {
+    var ranIndex = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[ranIndex]] = [newArr[ranIndex], newArr[i]];
+  }
+
+  return newArr;
 }
 
 export default App;
