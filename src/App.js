@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from './components/Image';
 import './App.css';
 
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
@@ -10,10 +11,10 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
   // TODO:
   // Make sure errors are caught for each call of fetch (and not just first function call in useEffect)?
 
-  //Query recursively to fetch all images (until continue property is no longer present)
   return fetch(url)
     .then((response) => response.json())
     .then(function (data) {
+      //Query recursively to fetch all images (until continue property is no longer present)
       if ('continue' in data) {
         // Combine image data & save in state
         let newData = Object.values(data.query.pages);
@@ -46,25 +47,6 @@ function shufflePhotos(arr) {
   return newArr;
 }
 
-function Image(props) {
-  const { currentPhoto } = props;
-  return (
-    <div className="photo-container">
-      <img
-        src={currentPhoto.imageinfo[0].url}
-        className="photo"
-        //style="height: 100vh;"
-        //height="100vh"
-
-        //{photos[currentImg].imageinfo[0].extmetadata.width > photos[currentImg].imageinfo[0].extmetadata.height ? "width"="100vw" : "height"="100vh"}
-        // alt={
-        //   photos[currentImg].imageinfo[0].extmetadata.ImageDescription.value
-        // }
-      />
-    </div>
-  );
-}
-
 function App() {
   const [photos, setPhotos] = useState([]);
   const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once
@@ -84,19 +66,6 @@ function App() {
   if (photos === undefined || photos.length == 0) {
     return <div className="App">Fetching images...</div>;
   }
-
-  /* TODO:
-    Check image's size, & (for whichever is larger) set width or height to browser's width or height
-      if (photos[currentIndex].imageinfo[0].extmetadata.width > photos[currentIndex].imageinfo[0].extmetadata.height) {
-        // set explicit width
-      } else {
-        // set explicit height
-      }
-
-    Fix image alts:
-      delete html markup from text
-      if imagedescription doesn't exist, set to standard or alternative text
-  */
 
   return (
     <div className="App">
