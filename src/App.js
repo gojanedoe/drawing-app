@@ -3,8 +3,6 @@ import Photo from './components/Photo';
 import './App.css';
 
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
-  // Test for no continue:  'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Documents signed by Boris Yeltsin&prop=imageinfo&gcmlimit=50&iiprop=url|extmetadata&format=json&origin=*';
-
   // TODO:
   // Fetch any subcategories and images held in subcategories
   // Way to fetch images from multiple categories (if using sub or related/predetermined categories)
@@ -53,7 +51,7 @@ function App() {
   const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once (unless this runs extra from dev mode)
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [isLoading, setIsLoading] = useState();
+  const [firstIsLoaded, setFirstIsLoaded] = useState(false);
 
   useEffect(() => {
     let url =
@@ -67,7 +65,8 @@ function App() {
 
   /* TODO:
     Pre-load firsts few images ahead of time
-      Preload first 3-5 first round
+      Don't show image until first is loaded
+      Preload first 3-5 first round?
 
     Skip cacheImage() preload if the index has already been skipped
   */
@@ -77,17 +76,18 @@ function App() {
     if (fetchIsFinished) {
       cacheImage(currentIndex);
     }
-  }, [currentIndex]);
+  }, [fetchIsFinished, currentIndex]);
 
-  const cacheImage = async (currI) => {
-    console.log('loading next image');
-    //return new Promise(function (resolve, reject) {
-    // next photo
+  const cacheImage = (currI) => {
+    console.log('loading image ', currentIndex + 1);
+
     const nextImg = new Image();
     nextImg.src = photos[currI + 1].imageinfo[0].url;
-    //nextImg.onload = resolve(console.log('loaded image:', currI + 1));
-    //nextImg.onerror = reject();
-    //});
+
+    // On first run
+    // if (!firstIsLoaded) {
+    //   setFirstIsLoaded(true);
+    // }
   };
 
   // Load all images
@@ -115,7 +115,7 @@ function App() {
     console.log('Current index: ', currentIndex);
   };
 
-  // Show loading text if no photos saved yet or fetch is not finished
+  // Show loading text if fetch is not finished
   if (photos === undefined || photos.length == 0 || !fetchIsFinished) {
     return <div className="App">Fetching images...</div>;
   }
