@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Image from './components/Image';
+import Photo from './components/Photo';
 import './App.css';
 
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
@@ -123,7 +123,7 @@ function App() {
   return (
     <div className="App" onClick={handleNextPhoto}>
       {console.log(photos[currentIndex])}
-      <Image currentPhoto={photos[currentIndex]} />
+      <Photo currentPhoto={photos[currentIndex]} />
     </div>
   );
 }

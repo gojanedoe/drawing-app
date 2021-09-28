@@ -1,13 +1,12 @@
 /* TODO:
-  On click, go to next image
-    Add click handler
-
   Fix image alts:
     delete html markup from text
     if imagedescription doesn't exist, set to standard or alternative text
+
+    Alt: use captions from differnet API at https://commons.wikimedia.org/wiki/Commons:File_captions#How_can_I_query_the_captions_using_the_API?
 */
 
-function Image(props) {
+function Photo(props) {
   const { currentPhoto } = props;
   return (
     <div className="photo-container">
@@ -26,4 +25,4 @@ function Image(props) {
   );
 }
 
-export default Image;
+export default Photo;
