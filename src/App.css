@@ -1,0 +1,8 @@
+.photo-container {
+  text-align: center;
+  font-size: 0; /* remove extra pixels of space (added b/c of font descender elements) */
+}
+
+.photo {
+  height: 100vh;
+}
