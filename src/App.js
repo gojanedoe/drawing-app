@@ -7,6 +7,7 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
 
   // TODO:
   // Fetch any subcategories and images held in subcategories
+  // Way to fetch images from multiple categories (if using sub or related/predetermined categories)
 
   // TODO:
   // Make sure errors are caught for each call of fetch (and not just first function call in useEffect)?
@@ -25,7 +26,6 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
         fetchPhotos(url, setPhotos, setFetchIsFinished);
       } else {
         //End recursion
-        console.log('No more continues');
         let newData = Object.values(data.query.pages);
 
         // Combine image data, shuffle, & save in state
@@ -47,10 +47,13 @@ function shufflePhotos(arr) {
   return newArr;
 }
 
+// MAIN COMPONENT
 function App() {
   const [photos, setPhotos] = useState([]);
-  const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once
+  const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once (unless this runs extra from dev mode)
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
     let url =
@@ -62,15 +65,65 @@ function App() {
     }
   }, []);
 
-  // Show loading text if no photos saved yet
-  if (photos === undefined || photos.length == 0) {
+  /* TODO:
+    Pre-load firsts few images ahead of time
+      Preload first 3-5 first round
+
+    Skip cacheImage() preload if the index has already been skipped
+  */
+
+  // Pre-load next image into the cache
+  useEffect(() => {
+    if (fetchIsFinished) {
+      cacheImage(currentIndex);
+    }
+  }, [currentIndex]);
+
+  const cacheImage = async (currI) => {
+    console.log('loading next image');
+    //return new Promise(function (resolve, reject) {
+    // next photo
+    const nextImg = new Image();
+    nextImg.src = photos[currI + 1].imageinfo[0].url;
+    //nextImg.onload = resolve(console.log('loaded image:', currI + 1));
+    //nextImg.onerror = reject();
+    //});
+  };
+
+  // Load all images
+  // useEffect(() => {
+  //   if (fetchIsFinished) {
+  //     cacheImage(currentIndex);
+  //   }
+  // }, []);
+
+  // const cacheImage = async (currI) => {
+  //   const promises = await photos.map((photo) => {
+  //     return new Promise(function (resolve, reject) {
+  //       console.log('loading next image');
+
+  //       const nextImg = new Image();
+  //       nextImg.src = photo.imageinfo[0].url;
+  //       nextImg.onload = resolve();
+  //       nextImg.onerror = reject();
+  //     });
+  //   });
+  // };
+
+  const handleNextPhoto = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    console.log('Current index: ', currentIndex);
+  };
+
+  // Show loading text if no photos saved yet or fetch is not finished
+  if (photos === undefined || photos.length == 0 || !fetchIsFinished) {
     return <div className="App">Fetching images...</div>;
   }
 
   return (
-    <div className="App">
+    <div className="App" onClick={handleNextPhoto}>
       {console.log(photos[currentIndex])}
-      {fetchIsFinished && <Image currentPhoto={photos[currentIndex]} />}
+      <Image currentPhoto={photos[currentIndex]} />
     </div>
   );
 }
