@@ -1,16 +1,20 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-/* .App {
-  display: flex;
-  flex-direction: column;
-} */
 
 body {
   position: relative;
   color: white;
   background-color: black;
+
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
 }
 
 .photo-container {
@@ -104,4 +108,37 @@ footer {
 .playButton:hover,
 .pauseButton:hover {
   cursor: pointer;
+}
+
+.loading-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.loading-text {
+  text-align: center;
+  margin-top: 50vh;
+}
+
+/* Fetching animation */
+.loading-text:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: '\2026'; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1em;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1em;
+  }
 }

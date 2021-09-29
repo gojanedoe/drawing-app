@@ -97,24 +97,23 @@ function Header() {
 }
 
 // Placeholder Timer
-function Timer() {
+function Timer({ runTimer }) {
+  // if runTimer is true, keep counting down
+
   return <div className="Timer">15:00</div>;
 }
 
 // Placeholder Arrows
 function Footer({ handleNextPhoto }) {
-  const [timerIsRunning, setTimerIsRunning] = useState(false);
+  const [runTimer, setRunTimer] = useState(false);
 
   const handleToggleTimer = () => {
-    setTimerIsRunning((prevIsRunning) => !prevIsRunning);
+    setRunTimer((prevIsRunning) => !prevIsRunning);
   };
-
-  // If timer is running, start counting down
-  // When timer is up, handleNextPhoto "next"
 
   return (
     <footer>
-      <Timer />
+      <Timer runTimer={runTimer} />
       <div className="button-container">
         <button className="arrowButton">
           <img
@@ -124,7 +123,7 @@ function Footer({ handleNextPhoto }) {
           />
         </button>
         <button className="playButton">
-          {timerIsRunning ? (
+          {runTimer ? (
             <img
               src={pauseButton}
               alt="Pause timer"
@@ -197,7 +196,11 @@ function App() {
 
   // Show loading text if fetch is not finished
   if (photos === undefined || photos.length == 0 || !fetchIsFinished) {
-    return <div className="App">Fetching images...</div>;
+    return (
+      <div className="App loading-container">
+        <p className="loading-text">Fetching images</p>
+      </div>
+    );
   }
 
   // If fetch is finished, return full app
