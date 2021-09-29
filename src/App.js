@@ -4,6 +4,8 @@ import './App.css';
 import menuIcon from './assets/menu-icon.svg';
 import rightArrow from './assets/right-arrow.svg';
 import leftArrow from './assets/left-arrow.svg';
+import playButton from './assets/play-icon.svg';
+import pauseButton from './assets/pause-icon.svg';
 
 /* TODO: (Next Up)
 
@@ -22,6 +24,8 @@ import leftArrow from './assets/left-arrow.svg';
 
   Handle errors and re-try when there is no load (or it times out)
     E.g. random "Uncaught (in promise) TypeError: NetworkError when attempting to fetch resource."
+
+    When loading certain images: "Image corrupt or truncated."
 */
 
 /* TODO: (cacheImage)
@@ -84,13 +88,22 @@ function Timer() {
 
 // Placeholder Arrows
 function Footer() {
+  const [timerIsRunning, setTimerIsRunning] = useState(false);
+
   return (
     <>
       <button className="arrowButton">
-        <img src={leftArrow} alt="Open menu" />
+        <img src={leftArrow} alt="Next image" />
+      </button>
+      <button className="playButton">
+        {timerIsRunning ? (
+          <img src={pauseButton} alt="Pause timer" />
+        ) : (
+          <img src={playButton} alt="Start timer" />
+        )}
       </button>
       <button className="arrowButton">
-        <img src={rightArrow} alt="Open menu" />
+        <img src={rightArrow} alt="Last image" />
       </button>
     </>
   );
@@ -143,7 +156,7 @@ function App() {
   return (
     <div className="App" onClick={handleNextPhoto}>
       {console.log(photos[currentIndex])}
-      <Header />
+      <Header className="Header" />
       <Photo currentPhoto={photos[currentIndex]} />
       <Timer />
       <Footer />

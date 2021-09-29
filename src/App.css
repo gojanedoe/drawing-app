@@ -12,7 +12,9 @@
 }
 
 .menuButton,
-.arrowButton {
+.arrowButton,
+.playButton,
+.pauseButton {
   /* min-height: 64px;
   min-width: 64px; */
   margin: 20px;
@@ -27,6 +29,8 @@
 }
 
 .menuButton:hover,
-.arrowButton:hover {
+.arrowButton:hover,
+.playButton:hover,
+.pauseButton:hover {
   cursor: pointer;
 }
