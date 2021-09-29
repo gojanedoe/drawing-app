@@ -1,15 +1,38 @@
 import { useState, useEffect } from 'react';
 import Photo from './components/Photo';
 import './App.css';
+import menuIcon from './assets/menu-icon.svg';
+import rightArrow from './assets/right-arrow.svg';
+import leftArrow from './assets/left-arrow.svg';
+
+/* TODO: (Next Up)
+
+  Arrow Keys
+  Timer
+  Buttons
+  Nav Side Bar
+
+*/
+
+/* TODO: (fetchPhotos)
+  Fetch any subcategories and images held in subcategories
+  Way to fetch images from multiple categories (if using sub or related/predetermined categories)
+
+  Make sure errors are caught for each call of fetch (and not just first function call in useEffect)?
+
+  Handle errors and re-try when there is no load (or it times out)
+    E.g. random "Uncaught (in promise) TypeError: NetworkError when attempting to fetch resource."
+*/
+
+/* TODO: (cacheImage)
+  Pre-load firsts few images ahead of time
+    Don't show image until first is loaded
+    Preload first 3-5 first round?
+
+  Skip cacheImage() preload if the index has already been skipped
+*/
 
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
-  // TODO:
-  // Fetch any subcategories and images held in subcategories
-  // Way to fetch images from multiple categories (if using sub or related/predetermined categories)
-
-  // TODO:
-  // Make sure errors are caught for each call of fetch (and not just first function call in useEffect)?
-
   return fetch(url)
     .then((response) => response.json())
     .then(function (data) {
@@ -45,13 +68,41 @@ function shufflePhotos(arr) {
   return newArr;
 }
 
+// Placeholder Header
+function Header() {
+  return (
+    <button className="menuButton">
+      <img src={menuIcon} alt="Open menu" />
+    </button>
+  );
+}
+
+// Placeholder Timer
+function Timer() {
+  return <div>15:00</div>;
+}
+
+// Placeholder Arrows
+function Footer() {
+  return (
+    <>
+      <button className="arrowButton">
+        <img src={leftArrow} alt="Open menu" />
+      </button>
+      <button className="arrowButton">
+        <img src={rightArrow} alt="Open menu" />
+      </button>
+    </>
+  );
+}
+
 // MAIN COMPONENT
 function App() {
   const [photos, setPhotos] = useState([]);
   const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once (unless this runs extra from dev mode)
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [firstIsLoaded, setFirstIsLoaded] = useState(false);
+  // const [firstIsLoaded, setFirstIsLoaded] = useState(false);
 
   useEffect(() => {
     let url =
@@ -62,14 +113,6 @@ function App() {
         .catch((err) => console.error('Error:', err));
     }
   }, []);
-
-  /* TODO:
-    Pre-load firsts few images ahead of time
-      Don't show image until first is loaded
-      Preload first 3-5 first round?
-
-    Skip cacheImage() preload if the index has already been skipped
-  */
 
   // Pre-load next image into the cache
   useEffect(() => {
@@ -83,35 +126,11 @@ function App() {
 
     const nextImg = new Image();
     nextImg.src = photos[currI + 1].imageinfo[0].url;
-
-    // On first run
-    // if (!firstIsLoaded) {
-    //   setFirstIsLoaded(true);
-    // }
   };
-
-  // Load all images
-  // useEffect(() => {
-  //   if (fetchIsFinished) {
-  //     cacheImage(currentIndex);
-  //   }
-  // }, []);
-
-  // const cacheImage = async (currI) => {
-  //   const promises = await photos.map((photo) => {
-  //     return new Promise(function (resolve, reject) {
-  //       console.log('loading next image');
-
-  //       const nextImg = new Image();
-  //       nextImg.src = photo.imageinfo[0].url;
-  //       nextImg.onload = resolve();
-  //       nextImg.onerror = reject();
-  //     });
-  //   });
-  // };
 
   const handleNextPhoto = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+
     console.log('Current index: ', currentIndex);
   };
 
@@ -120,10 +139,14 @@ function App() {
     return <div className="App">Fetching images...</div>;
   }
 
+  // If fetch is finished, return full app
   return (
     <div className="App" onClick={handleNextPhoto}>
       {console.log(photos[currentIndex])}
+      <Header />
       <Photo currentPhoto={photos[currentIndex]} />
+      <Timer />
+      <Footer />
     </div>
   );
 }
