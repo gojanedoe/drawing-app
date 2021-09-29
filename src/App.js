@@ -11,9 +11,20 @@ import pauseButton from './assets/pause-icon.svg';
 
   Arrow Keys
   Timer
-  Buttons
   Nav Side Bar
+  Loading Page - Styling
+  Buttons - Color
 
+  Keyboard handler for all key presses that correspond to a button
+  Add to the main app component
+    Space = pause/unpause
+    Right arrow = next image
+    Left arrow = next image
+
+    Click anywhere on app to move to next photo
+
+  Styling
+    Optional: Image fade in and out
 */
 
 /* TODO: (fetchPhotos)
@@ -26,10 +37,13 @@ import pauseButton from './assets/pause-icon.svg';
     E.g. random "Uncaught (in promise) TypeError: NetworkError when attempting to fetch resource."
 
     When loading certain images: "Image corrupt or truncated."
+
+  Loading waiting page
+    Have number of photos being fetched (each batch of 500) counted
 */
 
 /* TODO: (cacheImage)
-  Pre-load firsts few images ahead of time
+  Pre-load first few images ahead of time
     Don't show image until first is loaded
     Preload first 3-5 first round?
 
@@ -75,37 +89,42 @@ function shufflePhotos(arr) {
 // Placeholder Header
 function Header() {
   return (
-    <button className="menuButton">
-      <img src={menuIcon} alt="Open menu" />
-    </button>
+    <header>
+      <button className="menuButton">
+        <img src={menuIcon} alt="Open menu" />
+      </button>
+    </header>
   );
 }
 
 // Placeholder Timer
 function Timer() {
-  return <div>15:00</div>;
+  return <div className="Timer">15:00</div>;
 }
 
 // Placeholder Arrows
-function Footer() {
+function Footer({ handleNextPhoto }) {
   const [timerIsRunning, setTimerIsRunning] = useState(false);
 
   return (
-    <>
-      <button className="arrowButton">
-        <img src={leftArrow} alt="Next image" />
-      </button>
-      <button className="playButton">
-        {timerIsRunning ? (
-          <img src={pauseButton} alt="Pause timer" />
-        ) : (
-          <img src={playButton} alt="Start timer" />
-        )}
-      </button>
-      <button className="arrowButton">
-        <img src={rightArrow} alt="Last image" />
-      </button>
-    </>
+    <footer>
+      <Timer />
+      <div className="button-container">
+        <button className="arrowButton">
+          <img src={leftArrow} alt="Last image" />
+        </button>
+        <button className="playButton">
+          {timerIsRunning ? (
+            <img src={pauseButton} alt="Pause timer" />
+          ) : (
+            <img src={playButton} alt="Start timer" />
+          )}
+        </button>
+        <button className="arrowButton">
+          <img src={rightArrow} alt="Next image" onClick={handleNextPhoto} />
+        </button>
+      </div>
+    </footer>
   );
 }
 
@@ -154,12 +173,11 @@ function App() {
 
   // If fetch is finished, return full app
   return (
-    <div className="App" onClick={handleNextPhoto}>
+    <div className="App">
       {console.log(photos[currentIndex])}
-      <Header className="Header" />
+      <Header />
       <Photo currentPhoto={photos[currentIndex]} />
-      <Timer />
-      <Footer />
+      <Footer handleNextPhoto={handleNextPhoto} />
     </div>
   );
 }
