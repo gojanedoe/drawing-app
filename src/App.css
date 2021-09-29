@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .photo-container {
   text-align: center;
   font-size: 0; /* remove extra pixels of space (added b/c of font descender elements) */
@@ -5,4 +9,24 @@
 
 .photo {
   height: 100vh;
+}
+
+.menuButton,
+.arrowButton {
+  /* min-height: 64px;
+  min-width: 64px; */
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: none;
+  /* border-radius: gray; */
+  /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 2px solid transparent; */
+}
+
+.menuButton:hover,
+.arrowButton:hover {
+  cursor: pointer;
 }
