@@ -106,6 +106,10 @@ function Timer() {
 function Footer({ handleNextPhoto }) {
   const [timerIsRunning, setTimerIsRunning] = useState(false);
 
+  const handleToggleTimer = () => {
+    setTimerIsRunning((prevIsRunning) => !prevIsRunning);
+  };
+
   return (
     <footer>
       <Timer />
@@ -115,9 +119,17 @@ function Footer({ handleNextPhoto }) {
         </button>
         <button className="playButton">
           {timerIsRunning ? (
-            <img src={pauseButton} alt="Pause timer" />
+            <img
+              src={pauseButton}
+              alt="Pause timer"
+              onClick={handleToggleTimer}
+            />
           ) : (
-            <img src={playButton} alt="Start timer" />
+            <img
+              src={playButton}
+              alt="Start timer"
+              onClick={handleToggleTimer}
+            />
           )}
         </button>
         <button className="arrowButton">
