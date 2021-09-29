@@ -9,7 +9,6 @@ import pauseButton from './assets/pause-icon.svg';
 
 /* TODO: (Next Up)
 
-  Arrow Keys
   Timer
   Nav Side Bar
   Loading Page - Styling
@@ -110,12 +109,19 @@ function Footer({ handleNextPhoto }) {
     setTimerIsRunning((prevIsRunning) => !prevIsRunning);
   };
 
+  // If timer is running, start counting down
+  // When timer is up, handleNextPhoto "next"
+
   return (
     <footer>
       <Timer />
       <div className="button-container">
         <button className="arrowButton">
-          <img src={leftArrow} alt="Last image" />
+          <img
+            src={leftArrow}
+            alt="Last image"
+            onClick={() => handleNextPhoto('Back')}
+          />
         </button>
         <button className="playButton">
           {timerIsRunning ? (
@@ -133,7 +139,11 @@ function Footer({ handleNextPhoto }) {
           )}
         </button>
         <button className="arrowButton">
-          <img src={rightArrow} alt="Next image" onClick={handleNextPhoto} />
+          <img
+            src={rightArrow}
+            alt="Next image"
+            onClick={() => handleNextPhoto('Next')}
+          />
         </button>
       </div>
     </footer>
@@ -146,15 +156,13 @@ function App() {
   const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once (unless this runs extra from dev mode)
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // const [firstIsLoaded, setFirstIsLoaded] = useState(false);
-
   useEffect(() => {
     let url =
       'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata|size&format=json&origin=*';
 
     if (!fetchIsFinished) {
       fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
-        .catch((err) => console.error('Error:', err));
+        .catch((err) => console.error('Fetch error:', err));
     }
   }, []);
 
@@ -172,10 +180,19 @@ function App() {
     nextImg.src = photos[currI + 1].imageinfo[0].url;
   };
 
-  const handleNextPhoto = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+  const handleNextPhoto = (next) => {
+    switch (next) {
+      case 'Next':
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+        console.log('going to next photo');
+        break;
+      case 'Back':
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? 0 : prevIndex - 1));
+        console.log('going to last photo');
+        break;
+    }
 
-    console.log('Current index: ', currentIndex);
+    console.log('Last index: ', currentIndex);
   };
 
   // Show loading text if fetch is not finished
