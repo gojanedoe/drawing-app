@@ -121,6 +121,7 @@ footer {
 }
 
 /* Fetching animation */
+/* adapted from: https://codepen.io/thetallweeks/pen/yybGra */
 .loading-text:after {
   overflow: hidden;
   display: inline-block;

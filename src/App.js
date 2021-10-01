@@ -9,10 +9,12 @@ import pauseButton from './assets/pause-icon.svg';
 
 /* TODO: (Next Up)
 
-  Timer
+  Separate out components
+  Click forward anywhere
+
+  Timer - countdown
+  Timer - editable
   Nav Side Bar
-  Loading Page - Styling
-  Buttons - Color
 
   Keyboard handler for all key presses that correspond to a button
   Add to the main app component
@@ -42,9 +44,14 @@ import pauseButton from './assets/pause-icon.svg';
 */
 
 /* TODO: (cacheImage)
+  Add a small waiting time to start preload, 
+  so that current image that needs to load always goes first (before next image)
+
   Pre-load first few images ahead of time
     Don't show image until first is loaded
     Preload first 3-5 first round?
+
+  Change preload to be next or back depending on which photo is next
 
   Skip cacheImage() preload if the index has already been skipped
 */
