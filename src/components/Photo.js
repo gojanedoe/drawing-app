@@ -11,7 +11,8 @@ function Photo(props) {
   return (
     <div className="photo-container">
       <img
-        src={currentPhoto.imageinfo[0].url}
+        // src={currentPhoto.imageinfo[0].url}
+        src={currentPhoto.imageUrl}
         className="photo"
         //style="height: 100vh;"
         //height="100vh"
