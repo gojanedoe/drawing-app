@@ -1,66 +1,20 @@
 import { useState, useEffect } from 'react';
 import Photo from './components/Photo';
 import './App.css';
-import menuIcon from './assets/menu-icon.svg';
+import Footer from './components/Footer';
+import Header from './components/Header';
 import rightArrow from './assets/right-arrow.svg';
 import leftArrow from './assets/left-arrow.svg';
 import playButton from './assets/play-icon.svg';
 import pauseButton from './assets/pause-icon.svg';
 
-/* TODO: (Next Up)
-
-  Separate out components
-  Click forward anywhere
-
-  Timer - countdown
-  Timer - editable
-  Nav Side Bar
-
-  Keyboard handler for all key presses that correspond to a button
-  Add to the main app component
-    Space = pause/unpause
-    Right arrow = next image
-    Left arrow = next image
-
-    Click anywhere on app to move to next photo
-
-  Styling
-    Optional: Image fade in and out
-*/
-
-/* TODO: (fetchPhotos)
-  Fetch any subcategories and images held in subcategories
-  Way to fetch images from multiple categories (if using sub or related/predetermined categories)
-
-  Make sure errors are caught for each call of fetch (and not just first function call in useEffect)?
-
-  Handle errors and re-try when there is no load (or it times out)
-    E.g. random "Uncaught (in promise) TypeError: NetworkError when attempting to fetch resource."
-
-    When loading certain images: "Image corrupt or truncated."
-
-  Loading waiting page
-    Have number of photos being fetched (each batch of 500) counted
-*/
-
-/* TODO: (cacheImage)
-  Add a small waiting time to start preload, 
-  so that current image that needs to load always goes first (before next image)
-
-  Pre-load first few images ahead of time
-    Don't show image until first is loaded
-    Preload first 3-5 first round?
-
-  Change preload to be next or back depending on which photo is next
-
-  Skip cacheImage() preload if the index has already been skipped
-*/
-
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
   return fetch(url)
     .then((response) => response.json())
     .then(function (data) {
-      //Query recursively to fetch all images (until continue property is no longer present)
+      console.log(data);
+
+      // Query recursively to fetch all images (until continue property is no longer present)
       if ('continue' in data) {
         // Combine image data & save in state
         let newData = Object.values(data.query.pages);
@@ -92,74 +46,10 @@ function shufflePhotos(arr) {
   return newArr;
 }
 
-// Placeholder Header
-function Header() {
-  return (
-    <header>
-      <button className="menuButton">
-        <img src={menuIcon} alt="Open menu" />
-      </button>
-    </header>
-  );
-}
-
-// Placeholder Timer
-function Timer({ runTimer }) {
-  // if runTimer is true, keep counting down
-
-  return <div className="Timer">15:00</div>;
-}
-
-// Placeholder Arrows
-function Footer({ handleNextPhoto }) {
-  const [runTimer, setRunTimer] = useState(false);
-
-  const handleToggleTimer = () => {
-    setRunTimer((prevIsRunning) => !prevIsRunning);
-  };
-
-  return (
-    <footer>
-      <Timer runTimer={runTimer} />
-      <div className="button-container">
-        <button className="arrowButton">
-          <img
-            src={leftArrow}
-            alt="Last image"
-            onClick={() => handleNextPhoto('Back')}
-          />
-        </button>
-        <button className="playButton">
-          {runTimer ? (
-            <img
-              src={pauseButton}
-              alt="Pause timer"
-              onClick={handleToggleTimer}
-            />
-          ) : (
-            <img
-              src={playButton}
-              alt="Start timer"
-              onClick={handleToggleTimer}
-            />
-          )}
-        </button>
-        <button className="arrowButton">
-          <img
-            src={rightArrow}
-            alt="Next image"
-            onClick={() => handleNextPhoto('Next')}
-          />
-        </button>
-      </div>
-    </footer>
-  );
-}
-
 // MAIN COMPONENT
 function App() {
   const [photos, setPhotos] = useState([]);
-  const [fetchIsFinished, setFetchIsFinished] = useState(false); // TODO: Find way to replace this so useEffect only runs once (unless this runs extra from dev mode)
+  const [fetchIsFinished, setFetchIsFinished] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -186,6 +76,7 @@ function App() {
     nextImg.src = photos[currI + 1].imageinfo[0].url;
   };
 
+  // Respond to back and forward button clicks for photo
   const handleNextPhoto = (next) => {
     switch (next) {
       case 'Next':
@@ -197,7 +88,6 @@ function App() {
         console.log('going to last photo');
         break;
     }
-
     console.log('Last index: ', currentIndex);
   };
 
