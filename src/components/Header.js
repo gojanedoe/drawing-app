@@ -3,9 +3,12 @@ import menuIcon from '../assets/menu-icon.svg';
 function Header() {
   return (
     <header>
-      <button className="menuButton">
-        <img src={menuIcon} alt="Open menu" />
-      </button>
+      <p>Draw This!</p>
+      <div className="button-container">
+        <button className="menuButton">
+          <img src={menuIcon} alt="Open menu" />
+        </button>
+      </div>
     </header>
   );
 }
