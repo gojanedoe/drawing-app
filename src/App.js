@@ -50,12 +50,15 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
 
         // Set photo credit name for attribution
         let attribution = 'Not available';
-        if (imageMetadata.hasOwnProperty('Attribution')) {
-          console.log('Has Attribution prop');
-          attribution = imageMetadata.Attribution.value;
+        if (imageMetadata.hasOwnProperty('Author')) {
+          console.log('Has Author prop');
+          attribution = imageMetadata.Author.value;
         } else if (imageMetadata.hasOwnProperty('Artist')) {
           console.log('Has Artist prop');
           attribution = imageMetadata.Artist.value;
+        } else if (imageMetadata.hasOwnProperty('Attribution')) {
+          console.log('Has Attribution prop');
+          attribution = imageMetadata.Attribution.value;
         }
 
         // Set credit name
@@ -192,7 +195,11 @@ function App() {
       {console.log(photos[currentIndex])}
       <Header />
       <Photo currentPhoto={photos[currentIndex]} />
-      <Footer handleNextPhoto={handleNextPhoto} />
+      <Footer
+        handleNextPhoto={handleNextPhoto}
+        photos={photos}
+        currentIndex={currentIndex}
+      />
     </div>
   );
 }

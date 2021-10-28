@@ -14,6 +14,7 @@ function Photo(props) {
         // src={currentPhoto.imageinfo[0].url}
         src={currentPhoto.imageUrl}
         className="photo"
+        alt={currentPhoto.imageDesc}
         //style="height: 100vh;"
         //height="100vh"
 

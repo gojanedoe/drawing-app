@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
+import Credit from './Credit';
 import rightArrow from '../assets/right-arrow.svg';
 import leftArrow from '../assets/left-arrow.svg';
 import playButton from '../assets/play-icon.svg';
 import pauseButton from '../assets/pause-icon.svg';
-import infoIcon from '../assets/info.svg';
 
 import Timer from './Timer';
 
-const Footer = ({ handleNextPhoto }) => {
+const Footer = ({ handleNextPhoto, photos, currentIndex }) => {
   const [runTimer, setRunTimer] = useState(false);
 
   const handleToggleTimer = () => {
@@ -17,9 +17,7 @@ const Footer = ({ handleNextPhoto }) => {
 
   return (
     <footer>
-      <button className="infoButton">
-        <img src={infoIcon} alt="Open image information" />
-      </button>
+      <Credit photos={photos} currentIndex={currentIndex}></Credit>
       <div className="button-container vertical">
         <Timer runTimer={runTimer} />
         <div className="button-container">
