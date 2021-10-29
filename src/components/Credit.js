@@ -15,8 +15,22 @@ const Credit = ({ photos, currentIndex }) => {
     <Popover style={{ color: 'black' }}>
       {/* <Popover.Header>Test Button</Popover.Header> */}
       <Popover.Body ref={popoverRef}>
-        <span className="credit-title">Attribution: </span>
+        <span className="credit-title">Credit: </span>
         {photos[currentIndex].attribution}
+        <br />
+        <span className="credit-title">License: </span>
+        <a
+          href={photos[currentIndex].licenseUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {photos[currentIndex].license}
+        </a>
+        <br />
+        <span className="credit-title">Source: </span>
+        <a href={photos[currentIndex].wikiUrl} target="_blank" rel="noreferrer">
+          Wikimedia Commons
+        </a>
       </Popover.Body>
     </Popover>
   );
