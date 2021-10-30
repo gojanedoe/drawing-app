@@ -66,13 +66,9 @@ footer {
   justify-content: space-between;
   align-items: end;
   width: 100%;
-
-  /* flex-direc */
 }
 
 .button-container {
-  /* position: fixed; */
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -137,18 +133,7 @@ footer {
   cursor: pointer;
 }
 
-/* main {
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  flex-direction: column;
-} */
-
 main {
-  /* border: 1px solid white; */
-  /* width: 80%;
-  max-width: 800px; */
   padding: 20px;
 }
 
@@ -166,7 +151,6 @@ main h1 {
 }
 
 main p {
-  /* width: 80%; */
   max-width: 800px;
   font-size: 18px;
 }
@@ -214,15 +198,6 @@ form {
 }
 
 /* Category Select Form */
-/* form input {
-  display: none;
-}
-
-form input:checked + span {
-  border: 2px solid blue;
-  background-color: red;
-} */
-
 form span {
   padding-left: 0.5rem;
 }
@@ -236,11 +211,4 @@ form button {
 .btn-light:hover {
   background-color: lightgray;
   border: 1px solid lightgray;
-}
-
-form label:active {
-  /* top: 5px; */
-  /* right: 5px; */
-  /* box-shadow: inset 3px 3px gray; */
-  /* border: 1px solid lightgray; */
 }

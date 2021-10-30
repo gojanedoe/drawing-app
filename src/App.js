@@ -8,7 +8,7 @@ import Intro from './components/Intro';
 import PhotoGenerator from './components/PhotoGenerator';
 
 // MAIN COMPONENT
-function App() {
+const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   // If fetch is finished, return full app
@@ -26,6 +26,6 @@ function App() {
       </Route>
     </div>
   );
-}
+};
 
 export default App;

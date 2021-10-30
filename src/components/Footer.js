@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
 import Credit from './Credit';
+import Timer from './Timer';
+
 import rightArrow from '../assets/right-arrow.svg';
 import leftArrow from '../assets/left-arrow.svg';
 import playButton from '../assets/play-icon.svg';
 import pauseButton from '../assets/pause-icon.svg';
 
-import Timer from './Timer';
-
-const Footer = ({ handleNextPhoto, photos, currentIndex }) => {
+const Footer = (props) => {
+  const { handleNextPhoto, photos, currentIndex } = props;
   const [runTimer, setRunTimer] = useState(false);
 
   const handleToggleTimer = () => {

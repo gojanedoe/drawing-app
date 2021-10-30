@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Photo from './Photo';
 import Footer from './Footer';
-import Header from './Header';
 
 // Fetch photos once in single batch
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
@@ -108,8 +107,6 @@ const PhotoGenerator = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // let url =
-    //   'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata|size&format=json&origin=*';
     let url =
       'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=50&iiprop=url|extmetadata|size&format=json&origin=*';
 

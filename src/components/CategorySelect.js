@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const CategorySelect = (props) => {
   const { selectedCategory, setSelectedCategory } = props;
   let history = useHistory();
   let formIsValid = false;
-  // const [formIsValid, setFormIsValid] = useState(false);
-  // const [selectedCategory, setSelectedCategory] = useState('');
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -33,22 +30,6 @@ const CategorySelect = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      {/* <label className="btn btn-light">
-        <input type="checkbox" value="People" onChange={handleInputChange} />
-        <span>People</span>
-      </label>
-      <label className="btn btn-light">
-        <input type="checkbox" value="Animals" onChange={handleInputChange} />
-        <span>Animals</span>
-      </label>
-      <label className="btn btn-light">
-        <input
-          type="checkbox"
-          value="Landscapes"
-          onChange={handleInputChange}
-        />
-        <span>Landscapes</span>
-      </label> */}
       <label className="btn btn-light">
         <input
           type="radio"

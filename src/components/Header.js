@@ -1,7 +1,7 @@
 import menuIcon from '../assets/menu-icon.svg';
 import { Link } from 'react-router-dom';
 
-function Header() {
+const Header = () => {
   return (
     <header>
       <Link className="site-title" to="/" exact>
@@ -14,6 +14,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;
