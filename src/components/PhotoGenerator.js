@@ -3,34 +3,6 @@ import Photo from './Photo';
 import Footer from './Footer';
 import Header from './Header';
 
-// function recursiveFetchPhotos(url, setPhotos, setFetchIsFinished) {
-//   return fetch(url)
-//     .then((response) => response.json())
-//     .then(function (data) {
-//       console.log(data);
-
-//       // Query recursively to fetch all images (until continue property is no longer present)
-//       if ('continue' in data) {
-//         // Combine image data & save in state
-//         // let newData = Object.values(data.query.pages);
-//         let newData = Object.values(data.query.pages);
-//         setPhotos((prevState) => prevState.concat(newData));
-
-//         // Call fetch again with new url
-//         url = url + '&gcmcontinue=' + data.continue.gcmcontinue;
-//         fetchPhotos(url, setPhotos, setFetchIsFinished);
-//       } else {
-//         // End recursion
-//         // let newData = Object.values(data.query.pages);
-//         let newData = Object.values(data.query.pages);
-
-//         // Combine image data, shuffle, & save in state
-//         setPhotos((prevState) => shufflePhotos(prevState.concat(newData)));
-//         setFetchIsFinished(true);
-//       }
-//     });
-// }
-
 // Fetch photos once in single batch
 function fetchPhotos(url, setPhotos, setFetchIsFinished) {
   return fetch(url)
@@ -44,8 +16,11 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
         let imageMetadata = imageInfo.extmetadata;
 
         // Remove any HTML tags from image description
-        let origImageDesc = imageMetadata.ImageDescription.value;
-        let cleanImageDesc = origImageDesc.replace(/<[^>]*>?/gm, '');
+        let cleanImageDesc = null;
+        if (imageMetadata.hasOwnProperty('ImageDescription')) {
+          let origImageDesc = imageMetadata.ImageDescription.value;
+          cleanImageDesc = origImageDesc.replace(/<[^>]*>?/gm, '');
+        }
 
         // Set photo credit name for attribution
         let attribution = 'Not available';
@@ -127,7 +102,6 @@ function shufflePhotos(arr) {
 // MAIN COMPONENT
 const PhotoGenerator = (props) => {
   const { selectedCategory } = props;
-  console.log('Photo generator selected cat: ', selectedCategory);
 
   const [photos, setPhotos] = useState([]);
   const [fetchIsFinished, setFetchIsFinished] = useState(false);
