@@ -137,9 +137,23 @@ footer {
   cursor: pointer;
 }
 
-main {
+/* main {
   padding: 40px;
-  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+} */
+
+main {
+  /* border: 1px solid white; */
+  /* width: 80%;
+  max-width: 800px; */
+  padding: 20px;
+}
+
+.container {
+  padding: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,9 +166,17 @@ main h1 {
 }
 
 main p {
-  width: 80%;
+  /* width: 80%; */
   max-width: 800px;
   font-size: 18px;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+form {
+  padding-top: 14px;
 }
 
 .loading-container {
@@ -189,4 +211,36 @@ main p {
   to {
     width: 1em;
   }
+}
+
+/* Category Select Form */
+/* form input {
+  display: none;
+}
+
+form input:checked + span {
+  border: 2px solid blue;
+  background-color: red;
+} */
+
+form span {
+  padding-left: 0.5rem;
+}
+
+form label,
+form button {
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+.btn-light:hover {
+  background-color: lightgray;
+  border: 1px solid lightgray;
+}
+
+form label:active {
+  /* top: 5px; */
+  /* right: 5px; */
+  /* box-shadow: inset 3px 3px gray; */
+  /* border: 1px solid lightgray; */
 }
