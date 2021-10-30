@@ -132,6 +132,22 @@ footer {
   cursor: pointer;
 }
 
+main {
+  padding: 40px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+main p {
+  width: 80%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
 .loading-container {
   height: 100vh;
   overflow: hidden;
