@@ -5,10 +5,7 @@ const Intro = () => {
     <div className="container">
       <main>
         <h1>Welcome</h1>
-        <p>
-          Draw This! is a drawing reference app. After choosing a topic, a
-          selection of random photos will be generated.
-        </p>
+        <p>Draw This! is an image reference generator for artists.</p>
         <p>
           Choose the subject you'd like to draw below, and click "Start" to
           begin.
