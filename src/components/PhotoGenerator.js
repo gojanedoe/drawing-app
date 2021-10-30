@@ -33,11 +33,14 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
           console.log('Has Attribution prop');
           attribution = imageMetadata.Attribution.value;
         }
+        // Remove any HTML tags
+        attribution = attribution.replace(/<[^>]*>?/gm, '');
 
-        // Set credit name
+        // Set credit name + remove any HTML tags
         let credit = null;
         if (imageMetadata.hasOwnProperty('Credit')) {
           credit = imageMetadata.Credit.value;
+          credit = credit.replace(/<[^>]*>?/gm, '');
         }
 
         // Set if copyrighted or not
