@@ -1,6 +1,8 @@
 import CategorySelect from './CategorySelect';
 
-const Intro = () => {
+const Intro = (props) => {
+  const { selectedCategory, setSelectedCategory } = props;
+
   return (
     <div className="container">
       <main>
@@ -10,7 +12,10 @@ const Intro = () => {
           Choose the subject you'd like to draw below, and click "Start" to
           begin.
         </p>
-        <CategorySelect />
+        <CategorySelect
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </main>
     </div>
   );

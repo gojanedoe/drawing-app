@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Route } from 'react-router-dom';
 
 import './App.css';
@@ -8,15 +9,20 @@ import PhotoGenerator from './components/PhotoGenerator';
 
 // MAIN COMPONENT
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   // If fetch is finished, return full app
   return (
     <div className="App">
       <Header />
       <Route path="/" exact>
-        <Intro />
+        <Intro
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </Route>
       <Route path="/app">
-        <PhotoGenerator />
+        <PhotoGenerator selectedCategory={selectedCategory} />
       </Route>
     </div>
   );

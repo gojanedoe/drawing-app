@@ -125,7 +125,10 @@ function shufflePhotos(arr) {
 }
 
 // MAIN COMPONENT
-function PhotoGenerator() {
+const PhotoGenerator = (props) => {
+  const { selectedCategory } = props;
+  console.log('Photo generator selected cat: ', selectedCategory);
+
   const [photos, setPhotos] = useState([]);
   const [fetchIsFinished, setFetchIsFinished] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -135,6 +138,14 @@ function PhotoGenerator() {
     //   'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=max&iiprop=url|extmetadata|size&format=json&origin=*';
     let url =
       'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:Featured_pictures_of_landscapes&prop=imageinfo&gcmlimit=50&iiprop=url|extmetadata|size&format=json&origin=*';
+
+    // If category is selected, change url from default
+    if (selectedCategory !== '') {
+      url =
+        'https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtype=file&gcmtitle=Category:' +
+        selectedCategory +
+        '&prop=imageinfo&gcmlimit=50&iiprop=url|extmetadata|size&format=json&origin=*';
+    }
 
     if (!fetchIsFinished) {
       fetchPhotos(url, setPhotos, setFetchIsFinished) //get returned promise from fetch
@@ -200,6 +211,6 @@ function PhotoGenerator() {
       />
     </div>
   );
-}
+};
 
 export default PhotoGenerator;
