@@ -29,7 +29,6 @@ body {
 }
 
 .credit-title {
-  /* font-weight */
   font-weight: bold;
 }
 
@@ -44,11 +43,17 @@ header {
 }
 
 /* App Logo Text */
-header p {
+.site-title {
   font-size: 20px;
-  /* font-style: italic; */
   font-weight: bold;
   margin: 20px;
+  color: white;
+  text-decoration-line: none;
+}
+
+.site-title:hover {
+  color: white;
+  opacity: 0.76;
 }
 
 footer {
@@ -142,10 +147,14 @@ main {
   flex-direction: column;
 }
 
+main h1 {
+  margin-bottom: 1.6rem;
+}
+
 main p {
   width: 80%;
   max-width: 800px;
-  margin-top: 20px;
+  font-size: 18px;
 }
 
 .loading-container {

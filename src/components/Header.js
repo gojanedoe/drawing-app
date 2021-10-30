@@ -1,9 +1,12 @@
 import menuIcon from '../assets/menu-icon.svg';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <header>
-      <p>Draw This!</p>
+      <Link className="site-title" to="/" exact>
+        Draw This!
+      </Link>
       <div className="button-container">
         <button className="menuButton">
           <img src={menuIcon} alt="Open menu" />
