@@ -1,6 +1,10 @@
+import { Route } from 'react-router-dom';
+
 import './App.css';
+
 import Header from './components/Header';
-import CategorySelect from './components/CategorySelect';
+import Intro from './components/Intro';
+import PhotoGenerator from './components/PhotoGenerator';
 
 // MAIN COMPONENT
 function App() {
@@ -8,6 +12,12 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Route path="/" exact>
+        <Intro />
+      </Route>
+      <Route path="/app">
+        <PhotoGenerator />
+      </Route>
     </div>
   );
 }

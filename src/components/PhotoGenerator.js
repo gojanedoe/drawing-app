@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import Photo from './components/Photo';
-import './App.css';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Photo from './Photo';
+import Footer from './Footer';
+import Header from './Header';
 
 // function recursiveFetchPhotos(url, setPhotos, setFetchIsFinished) {
 //   return fetch(url)
