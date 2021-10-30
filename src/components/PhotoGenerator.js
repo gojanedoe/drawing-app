@@ -192,7 +192,6 @@ function PhotoGenerator() {
   return (
     <div className="App">
       {console.log(photos[currentIndex])}
-      <Header />
       <Photo currentPhoto={photos[currentIndex]} />
       <Footer
         handleNextPhoto={handleNextPhoto}
