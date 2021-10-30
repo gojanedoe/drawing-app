@@ -59,7 +59,6 @@ function fetchPhotos(url, setPhotos, setFetchIsFinished) {
         }
 
         // Set License Url
-        let licenseUrl = null;
         if (imageMetadata.hasOwnProperty('LicenseUrl')) {
         } else {
           console.log(

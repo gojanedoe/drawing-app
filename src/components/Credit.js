@@ -34,7 +34,11 @@ const Credit = (props) => {
   return (
     <OverlayTrigger trigger="click" placement="top" overlay={popover}>
       <button className="infoButton">
-        <img src={infoIcon} alt="Open image information" />
+        <img
+          src={infoIcon}
+          alt="The letter 'i' in a circle"
+          aria-label="Open image information"
+        />
       </button>
     </OverlayTrigger>
   );

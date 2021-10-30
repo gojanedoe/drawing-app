@@ -25,7 +25,8 @@ const Footer = (props) => {
           <button className="arrowButton">
             <img
               src={leftArrow}
-              alt="Last image"
+              alt="Left arrow"
+              aria-label="Go to previous image"
               onClick={() => handleNextPhoto('Back')}
             />
           </button>
@@ -33,13 +34,15 @@ const Footer = (props) => {
             {runTimer ? (
               <img
                 src={pauseButton}
-                alt="Pause timer"
+                alt="Pause"
+                aria-label="Pause timer"
                 onClick={handleToggleTimer}
               />
             ) : (
               <img
                 src={playButton}
-                alt="Start timer"
+                alt="Play"
+                aria-label="Start timer"
                 onClick={handleToggleTimer}
               />
             )}
@@ -47,7 +50,8 @@ const Footer = (props) => {
           <button className="arrowButton">
             <img
               src={rightArrow}
-              alt="Next image"
+              alt="Right arrow"
+              aria-label="Go to next image"
               onClick={() => handleNextPhoto('Next')}
             />
           </button>
