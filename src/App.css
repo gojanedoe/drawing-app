@@ -134,6 +134,11 @@ footer {
   cursor: pointer;
 }
 
+/* Temporary: hide menu button */
+.menuButton img {
+  display: none;
+}
+
 main {
   padding: 20px;
 }
