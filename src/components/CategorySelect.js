@@ -8,8 +8,6 @@ const CategorySelect = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log('selected category: ', selectedCategory);
-
     // Check form validity
     if (selectedCategory !== '') {
       formIsValid = true;
@@ -24,7 +22,6 @@ const CategorySelect = (props) => {
   };
 
   const handleInputChange = (event) => {
-    console.log(event.target.value);
     setSelectedCategory(event.target.value);
   };
 
