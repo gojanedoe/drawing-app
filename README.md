@@ -6,6 +6,8 @@ The app is made with React.js, React Router, Bootstrap, and Jest, with the API q
 
 # How to View the Project
 
+The live project is at: [https://gojanedoe.github.io/drawing-app/](https://gojanedoe.github.io/drawing-app/)
+
 To run this project in development mode: 
 * Open the project folder in a code editor or navigate to it using your CLI (command-line interface)
 * While in the folder, run `npm start` in your CLI
